@@ -1,23 +1,22 @@
----
-title: "Differential Abundance Analysis"
-output: github_document
----
+Differential Abundance Analysis
+================
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+In our previous beta-diversity analysis, we have seen that there is a
+high dissimilarity between Canopy-habitats and Ground-habitats.  
+Let’s find out if there are any key players shaping this dissimilarity.
 
-In our previous beta-diversity analysis, we have seen that there is a high dissimilarity between Canopy-habitats and Ground-habitats.\
-Let's find out if there are any key players shaping this dissimilarity.
+To do so, we use the tool `DESeq2`  
+It was originally designed for differential gene expression based on RNA
+read counts, but we can also use it on our OTU table, as it is also
+count data.
 
-To do so, we use the tool `DESeq2`\
-It was originally designed for differential gene expression based on RNA read counts, but we can also use it on our OTU table, as it is also count data.
+\#\#Loading Data
 
-##Loading Data
+First, we need to load the required R packages and the OTU table. We
+also define Metadata for our analysis (in this case, Microhabitat and
+Stratum and so on)
 
-First, we need to load the required R packages and the OTU table. We also define Metadata for our analysis (in this case, Microhabitat and Stratum and so on)
-
-```{r Loading Data, results="hide", message=FALSE}
+``` r
 rm(list = ls())
 
 library(DESeq2)
@@ -53,15 +52,15 @@ TaxonomyTable$Order = gsub("incertae_sedis", "Incertae sedis",
 species = OTU_Table[,18:ncol(OTU_Table)]
 species_mat = as.matrix(species)
 SampleMetadata = as.matrix(OTU_Table[,1:17])
-
 ```
 
-##DESeq2
+\#\#DESeq2
 
-Workflow adapted from `https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#standard-workflow` \
+Workflow adapted from
+`https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#standard-workflow`  
 The OTU table is here converted into a DESeq2 object.
 
-```{r DESeq2, results="hide", message=FALSE}
+``` r
 #Read the OTU table into a DESeq2 object
 ddsStratum = DESeqDataSetFromMatrix(countData = t(species_mat),
                                     colData = SampleMetadata,
@@ -83,22 +82,65 @@ resStratumLFC = lfcShrink(ddsStratum,
                           res = resStratum, 
                           coef = "Stratum_Ground_vs_Canopy", 
                           quiet = T)
-
 ```
 
-Let's have a look at the results table:
+Let’s have a look at the results table:
 
-```{r Head Results, echo=FALSE}
-head(resStratumLFC)
-```
+    ## log2 fold change (MAP): Stratum Ground vs Canopy 
+    ## Wald test p-value: Stratum Ground vs Canopy 
+    ## DataFrame with 6 rows and 5 columns
+    ##                                                                                                        baseMean
+    ##                                                                                                       <numeric>
+    ## X10_Lagenidiales.Lagenidiales_Family_NoHit.Lagenidiales_Genus_NoHit.Lagenidiales_Species_NoHit 346.296754600467
+    ## X44_Peronosporales.Peronosporaceae.Peronosporaceae_Genus_NoHit.Peronosporaceae_Species_NoHit   111.285282281881
+    ## X57_Saprolegniales.Saprolegniaceae.Pythiopsis.Pythiopsis_intermedia                             52.955745603838
+    ## X61_Saprolegniales.Saprolegniaceae.Saprolegnia.Saprolegnia_anisospora                          59.8877318312118
+    ## X36_Saprolegniales.Saprolegniaceae.Saprolegniaceae_Genus_NoHit.Saprolegniaceae_Species_NoHit    89.152720580986
+    ## X14_Lagenidiales.Lagenidiales_Family_NoHit.Lagenidiales_Genus_NoHit.Lagenidiales_Species_NoHit 250.591705571964
+    ##                                                                                                    log2FoldChange
+    ##                                                                                                         <numeric>
+    ## X10_Lagenidiales.Lagenidiales_Family_NoHit.Lagenidiales_Genus_NoHit.Lagenidiales_Species_NoHit  -1.36168344799441
+    ## X44_Peronosporales.Peronosporaceae.Peronosporaceae_Genus_NoHit.Peronosporaceae_Species_NoHit    -2.02646234994763
+    ## X57_Saprolegniales.Saprolegniaceae.Pythiopsis.Pythiopsis_intermedia                              3.20255985099499
+    ## X61_Saprolegniales.Saprolegniaceae.Saprolegnia.Saprolegnia_anisospora                            6.21088103762039
+    ## X36_Saprolegniales.Saprolegniaceae.Saprolegniaceae_Genus_NoHit.Saprolegniaceae_Species_NoHit   -0.120807302501731
+    ## X14_Lagenidiales.Lagenidiales_Family_NoHit.Lagenidiales_Genus_NoHit.Lagenidiales_Species_NoHit   1.57729536152472
+    ##                                                                                                            lfcSE
+    ##                                                                                                        <numeric>
+    ## X10_Lagenidiales.Lagenidiales_Family_NoHit.Lagenidiales_Genus_NoHit.Lagenidiales_Species_NoHit 0.668443111601936
+    ## X44_Peronosporales.Peronosporaceae.Peronosporaceae_Genus_NoHit.Peronosporaceae_Species_NoHit    0.50584539836023
+    ## X57_Saprolegniales.Saprolegniaceae.Pythiopsis.Pythiopsis_intermedia                            0.612203685634931
+    ## X61_Saprolegniales.Saprolegniaceae.Saprolegnia.Saprolegnia_anisospora                          0.599329665941852
+    ## X36_Saprolegniales.Saprolegniaceae.Saprolegniaceae_Genus_NoHit.Saprolegniaceae_Species_NoHit   0.612957094836867
+    ## X14_Lagenidiales.Lagenidiales_Family_NoHit.Lagenidiales_Genus_NoHit.Lagenidiales_Species_NoHit 0.508238597774344
+    ##                                                                                                              pvalue
+    ##                                                                                                           <numeric>
+    ## X10_Lagenidiales.Lagenidiales_Family_NoHit.Lagenidiales_Genus_NoHit.Lagenidiales_Species_NoHit                   NA
+    ## X44_Peronosporales.Peronosporaceae.Peronosporaceae_Genus_NoHit.Peronosporaceae_Species_NoHit                     NA
+    ## X57_Saprolegniales.Saprolegniaceae.Pythiopsis.Pythiopsis_intermedia                                              NA
+    ## X61_Saprolegniales.Saprolegniaceae.Saprolegnia.Saprolegnia_anisospora                          2.29870264996358e-25
+    ## X36_Saprolegniales.Saprolegniaceae.Saprolegniaceae_Genus_NoHit.Saprolegniaceae_Species_NoHit                     NA
+    ## X14_Lagenidiales.Lagenidiales_Family_NoHit.Lagenidiales_Genus_NoHit.Lagenidiales_Species_NoHit                   NA
+    ##                                                                                                                padj
+    ##                                                                                                           <numeric>
+    ## X10_Lagenidiales.Lagenidiales_Family_NoHit.Lagenidiales_Genus_NoHit.Lagenidiales_Species_NoHit                   NA
+    ## X44_Peronosporales.Peronosporaceae.Peronosporaceae_Genus_NoHit.Peronosporaceae_Species_NoHit                     NA
+    ## X57_Saprolegniales.Saprolegniaceae.Pythiopsis.Pythiopsis_intermedia                                              NA
+    ## X61_Saprolegniales.Saprolegniaceae.Saprolegnia.Saprolegnia_anisospora                          2.09437352552238e-24
+    ## X36_Saprolegniales.Saprolegniaceae.Saprolegniaceae_Genus_NoHit.Saprolegniaceae_Species_NoHit                     NA
+    ## X14_Lagenidiales.Lagenidiales_Family_NoHit.Lagenidiales_Genus_NoHit.Lagenidiales_Species_NoHit                   NA
 
-The `log2FoldChange` represents the differential abundance. As the design is `Stratum Ground vs Canopy`, positive values indicate a dependence on `Ground`, while OTUs with a negative value are more differentially abundant in the `Canopy`
+The `log2FoldChange` represents the differential abundance. As the
+design is `Stratum Ground vs Canopy`, positive values indicate a
+dependence on `Ground`, while OTUs with a negative value are more
+differentially abundant in the `Canopy`
 
-##Subset the data
+\#\#Subset the data
 
-We want only highly significant OTUs, so we filter our results table `resStratumLFC` based on the `padj` value
+We want only highly significant OTUs, so we filter our results table
+`resStratumLFC` based on the `padj` value
 
-```{r Subset the data}
+``` r
 DESeq_Stratum_dependend_Subset = subset(resStratumLFC, 
                                         resStratumLFC$padj < 0.01 #highly significant pvalues less than 0.01
                                         & abs(resStratumLFC$log2FoldChange) >= 1) #OTUs highly differential abundant, with an absolute LFC greater than 1
@@ -111,13 +153,15 @@ colnames(data) = "log2FoldChange"
 data$log2FoldChange = data$log2FoldChange * -1
 ```
 
-##Get the number of reads per OTU and Stratum
-###How are the differential abundant OTUs distributed?
+\#\#Get the number of reads per OTU and Stratum \#\#\#How are the
+differential abundant OTUs distributed?
 
-To answer that, we add an extra column to our results table which shows the abundance of the OTUs per Stratum\
-The abundance in this case is the number of reads per OTU in the respective strata
+To answer that, we add an extra column to our results table which shows
+the abundance of the OTUs per Stratum  
+The abundance in this case is the number of reads per OTU in the
+respective strata
 
-```{r Reads per OTU and Stratum}
+``` r
 #Create empty matrices, one for the Ground Stratum and one for the Canopy
 CanopyMatrix = matrix(numeric(0), 0,0)
 GroundMatrix = matrix(numeric(0), 0,0)
@@ -150,14 +194,13 @@ data$xPosition = seq(1:nrow(data))
 data = cbind(as(data, "data.frame"), as(TaxonomyTable[gsub("[^0-9]", "", rownames(data)),], "matrix"))
 
 rownames(data) = data$Species
-
 ```
 
-##Plot the Differential Abundance
+\#\#Plot the Differential Abundance
 
 Finally, our results can be plotted with ggplot2
 
-```{r Plot, fig.width=16, fig.height=9}
+``` r
 g = data %>% #pipe the data into ggplot
   #arrange(data$log2FoldChange, decreasing = T) %>% #Not sure if this is actually needed, because we already sorted the data. I keep it nevertheless
   mutate(x = factor(rownames(data), rownames(data))) %>% #Define the OTUs as x-coordinates
@@ -198,11 +241,15 @@ g = data %>% #pipe the data into ggplot
 g
 ```
 
+![](Seasonal_DifferentialAbundanceAnalysis_files/figure-gfm/Plot-1.png)<!-- -->
+
 ## With Taxonomy
 
-It is important to put the results into a taxonomic and functional context. So now we associate data to our OTUs and plot the results in a different manner:
+It is important to put the results into a taxonomic and functional
+context. So now we associate data to our OTUs and plot the results in a
+different manner:
 
-```{r Plot with Taxonomy}
+``` r
 ## sort the data
 x = tapply(data$log2FoldChange, data$Order, function(x) max(x))
 x = sort(x, T)
@@ -282,16 +329,22 @@ ggsave("DifferentialAbundanceAnalysis_Stratum.jpeg", plot = g_tax,
 g_tax
 ```
 
+![](Seasonal_DifferentialAbundanceAnalysis_files/figure-gfm/Plot%20with%20Taxonomy-1.png)<!-- -->
+
 ## Season
 
 Run DeSeq2 on the season:
 
-```{r DeSeqSeason}
+``` r
 #Read the OTU table into a DESeq2 object
 ddsSeason = DESeqDataSetFromMatrix(countData = t(species_mat),
                                     colData = SampleMetadata,
                                     design = ~ Season)
+```
 
+    ## converting counts to integer mode
+
+``` r
 #Do the differential abundance analysis
 ddsSeason = DESeq(ddsSeason, 
                    minReplicatesForReplace = Inf, #This means that Outliers should not be excluded, we want the maximum amount of information
@@ -393,11 +446,13 @@ s = data_s %>% #pipe the data into ggplot
 s
 ```
 
+![](Seasonal_DifferentialAbundanceAnalysis_files/figure-gfm/DeSeqSeason-1.png)<!-- -->
+
 ## Season with taxonomy
 
 Again, we need to associate data with the OTUs:
 
-```{r Season with Taxonomy}
+``` r
 x = tapply(data_s$log2FoldChange, data_s$Order, function(x) max(x))
 x = sort(x, T)
 data_s$Order = factor(as.character(data_s$Order), levels = names(x))
@@ -492,9 +547,11 @@ ggsave("DifferentialAbundanceAnalysis_Season.jpeg", plot = s_tax,
 s_tax
 ```
 
+![](Seasonal_DifferentialAbundanceAnalysis_files/figure-gfm/Season%20with%20Taxonomy-1.png)<!-- -->
+
 ## Combine Figures
 
-```{r combine Figures}
+``` r
 gs = ggarrange(g_tax, s_tax, 
                nrow = 2, ncol = 1, common.legend = T, 
                legend = "right", labels = "AUTO")
@@ -512,9 +569,10 @@ ggsave("DifferentialAbundanceAnalysis_Both.jpeg", plot = gs,
 
 ## Violin plot
 
-This is just for test purposes, it might be an additional way of visualising the dat:
+This is just for test purposes, it might be an additional way of
+visualising the dat:
 
-```{r Violin Plot}
+``` r
 s_tax_order = ggplot(data_s, aes(x = Genus, y = log2FoldChange, 
                          color = Lifestyle, fill = Lifestyle)) + 
   theme_minimal() +
@@ -547,11 +605,13 @@ s_tax_order = ggplot(data_s, aes(x = Genus, y = log2FoldChange,
 s_tax_order
 ```
 
+![](Seasonal_DifferentialAbundanceAnalysis_files/figure-gfm/Violin%20Plot-1.png)<!-- -->
+
 ## Combine Stratum and Season
 
 Again just for testing purposes:
 
-```{r CombinedSeasonStratum}
+``` r
 StratumData = subset(as.data.frame(resStratumLFC), 
                      select = c("log2FoldChange", "padj"))
 SeasonData = subset(as.data.frame(resSeasonLFC), 
@@ -627,5 +687,4 @@ ggsave("DifferentialAbundanceAnalysis_Combined.jpeg", plot = c,
 c
 ```
 
-
-
+![](Seasonal_DifferentialAbundanceAnalysis_files/figure-gfm/CombinedSeasonStratum-1.png)<!-- -->

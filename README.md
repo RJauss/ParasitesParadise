@@ -18,7 +18,7 @@ This folder contains the final OTU table, taxonomic annotation, sample metadata 
 ### 02 Taxonomic Annotation and Visualisation
 This is a collection of several scripts neccessary for the taxonomic annotation of our OTUs. What we do first is to **[BLAST against the NCBI nt database to remove contaminants](02_Taxonomic_Annotation_and_Visualisation/BLAST-against-NCBI-nt-Database.md)**. After that, we **[download and process public oomycete/cercozoan sequences](02_Taxonomic_Annotation_and_Visualisation/Downloading-&-Processing-ITS-Sequences.md)**, which we use as a reference database for our **[taxonomic annotation with `vsearch`](02_Taxonomic_Annotation_and_Visualisation/Annotate-with-vsearch-and-the-ITS1-reference-database.md)**.
 
-The visualisation of the taxonomy then includes a diagram showing the **[total taxonomic composition](02_Taxonomic_Annotation_and_Visualisation/AirSampler_TaxonomyOverview.md)**.
+The visualisation of the taxonomy then includes a diagram showing the **[taxonomy per season](02_Taxonomic_Annotation_and_Visualisation/Seasonal_TaxonomyPerSeason.md)**.
 What's more, we also visualised the **[Sequence Similarity to reference sequences](02_Taxonomic_Annotation_and_Visualisation/Seasonal_SequenceSimilarityToReference.md)**
 
 ### 03 Postprocessing the OTU Table
@@ -27,11 +27,12 @@ This section provides scripts on how to **[import, explore and filter the OTU ta
 ### 04 Exploring Alpha and Beta Diversity
 Here we deal with the methods of how to **[plot alpha diversity indices in a boxplot](04_Alpha_Beta_Diversity/Seasonal_AlphaBoxplot.md)**.
 
-One of the most straightforward methods of visualising beta diversity is an NMDS plot, the script is provided **[here](05_Alpha_Beta_Diversity/Seasonal_NMDS.md)**. But we also plot the number of **[shared OTUs in a Venn diagram](05_Beta_Diversity/AirSampler_VennDiagramm.md)**. 
+One of the most straightforward methods of visualising beta diversity is an NMDS plot, the script is provided **[here](05_Alpha_Beta_Diversity/Seasonal_NMDS.md)**. 
 
 ### 05 Abundance Partitioning
 First we perform and plot a **[Differential abundance analysis](05_Abundance_Partitioning/Seasonal_DifferentialAbundanceAnalysis.md)**. 
-then ternary
+
+Also, we partition the abundance on the canopy vs. soil vs. leaf litter in a **[Ternary Plot](05_Abundance_Partitioning/Seasonal_Ternary.md)**
 
 ### 06 Functional Diversity
-This section plots the **[distribution of functional traits for every microhabitat](06_FunctionalDiversity/Seasonal_FunctionalDiversity.md)** including a comparison to air samples from [Jauss et al. 2020b]().
+This section plots the **[distribution of functional traits for every microhabitat](06_FunctionalDiversity/Seasonal_FunctionalDiversity.md)** including a comparison to air samples from [Jauss et al. 2020b](https://doi.org/10.1101/2020.11.30.405688).
