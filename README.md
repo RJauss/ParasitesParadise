@@ -35,4 +35,4 @@ First we perform and plot a **[Differential abundance analysis](05_Abundance_Par
 Also, we partition the abundance on the canopy vs. soil vs. leaf litter in a **[Ternary Plot](05_Abundance_Partitioning/Seasonal_Ternary.md)**
 
 ### 06 Functional Diversity
-This section plots the **[distribution of functional traits for every microhabitat](06_FunctionalDiversity/Seasonal_FunctionalDiversity.md)** including a comparison to air samples from [Jauss et al. 2020b](https://doi.org/10.1101/2020.11.30.405688).
+This section plots the **[distribution of functional traits for every microhabitat](06_Functional_Diversity/Seasonal_FunctionalDiversity.md)** including a comparison to air samples from [Jauss et al. 2020b](https://doi.org/10.1101/2020.11.30.405688).
