@@ -27,7 +27,7 @@ This section provides scripts on how to **[import, explore and filter the OTU ta
 ### 04 Exploring Alpha and Beta Diversity
 Here we deal with the methods of how to **[plot alpha diversity indices in a boxplot](04_Alpha_Beta_Diversity/Seasonal_AlphaBoxplot.md)**.
 
-One of the most straightforward methods of visualising beta diversity is an NMDS plot, the script is provided **[here](05_Alpha_Beta_Diversity/Seasonal_NMDS.md)**. 
+One of the most straightforward methods of visualising beta diversity is an NMDS plot, the script is provided **[here](04_Alpha_Beta_Diversity/Seasonal_NMDS.md)**. 
 
 ### 05 Abundance Partitioning
 First we perform and plot a **[Differential abundance analysis](05_Abundance_Partitioning/Seasonal_DifferentialAbundanceAnalysis.md)**. 
