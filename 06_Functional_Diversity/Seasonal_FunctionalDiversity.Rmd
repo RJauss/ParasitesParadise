@@ -288,3 +288,26 @@ combi
 combiSpring2019_legend
 ```
 
+## Poisson regression
+
+We can check if hemibiotrophic species are in fact enriched in the ground, and obligate biotrophs in the canopy. We do a poisson regression:
+
+```{r}
+OTU_Table_hemi = OTU_Table[,TAX$Lifestyle == "hemibiotroph"]
+OTU_Table_obli = OTU_Table[,TAX$Lifestyle == "obligate biotroph"]
+
+data_hemi = data.frame(Abundance = rowSums(OTU_Table_hemi), 
+                       Microhabitat = SampleMetadata$Microhabitat, 
+                       TreeSpecies = SampleMetadata$TreeSpecies, 
+                       Stratum = SampleMetadata$Stratum)
+
+data_obli = data.frame(Abundance = rowSums(OTU_Table_obli), 
+                       Microhabitat = SampleMetadata$Microhabitat, 
+                       TreeSpecies = SampleMetadata$TreeSpecies, 
+                       Stratum = SampleMetadata$Stratum)
+
+summary(glm(data = data_hemi, Abundance ~ Microhabitat, family = "poisson"))
+summary(glm(data = data_obli, Abundance ~ Microhabitat, family = "poisson"))
+
+```
+
