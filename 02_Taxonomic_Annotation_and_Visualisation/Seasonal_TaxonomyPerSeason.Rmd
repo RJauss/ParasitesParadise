@@ -269,7 +269,7 @@ GenusDataAll$Hyaloperonospora = ifelse(GenusDataAll$Genus == "Hyaloperonospora",
                                        "Hyaloperonospora", NA_character_)
 
 g_Genus = ggplot(GenusDataAll, aes(x = Microhabitat, y = Abundance, fill = Order, color = Hyaloperonospora)) + 
-  geom_bar(position = position_fill(), stat = "identity", size = 0.5) + 
+  geom_bar(position = position_fill(), stat = "identity", size = 0.9) + 
   facet_grid(cols = vars(Stratum), scales = "free", space = "free") + 
   scale_y_continuous(labels = scales::percent) +
   labs(y = "Relative\nAbundance") + 
