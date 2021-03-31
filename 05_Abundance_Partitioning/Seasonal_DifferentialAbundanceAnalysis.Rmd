@@ -231,12 +231,12 @@ data$Order = gsub("Saprolegniales", "Saproleg-\nniales", data$Order)
 
 g_tax = ggplot(data, aes(x = Genus, y = log2FoldChange, 
                          color = Lifestyle, fill = Lifestyle)) + 
-  scale_color_manual(values = c("lightsteelblue4", "indianred4", 
-                               "bisque4", "honeydew3"), 
+  scale_color_manual(values = c("lightblue4", "indianred4", 
+                               "khaki", "grey"), 
                     limits = c("hemibiotroph", "obligate biotroph", 
                                "saprotroph", "undetermined")) +
-  scale_fill_manual(values = c("lightsteelblue4", "indianred4", 
-                               "bisque4", "honeydew3"), 
+  scale_fill_manual(values = c("lightblue4", "indianred4", 
+                               "khaki", "grey"), 
                     limits = c("hemibiotroph", "obligate biotroph", 
                                "saprotroph", "undetermined")) +
   theme_minimal() +
@@ -436,12 +436,12 @@ data_s$Season = factor(as.character(data_s$Season), levels = c("Spring", "Autumn
 
 s_tax = ggplot(data_s, aes(x = Genus, y = log2FoldChange, 
                          color = Lifestyle, fill = Lifestyle)) + 
-  scale_color_manual(values = c("lightsteelblue4", "indianred4", 
-                               "bisque4", "honeydew3"), 
+  scale_color_manual(values = c("lightblue4", "indianred4", 
+                               "khaki", "grey"), 
                     limits = c("hemibiotroph", "obligate biotroph", 
                                "saprotroph", "undetermined")) +
-  scale_fill_manual(values = c("lightsteelblue4", "indianred4", 
-                               "bisque4", "honeydew3"), 
+  scale_fill_manual(values = c("lightblue4", "indianred4", 
+                               "khaki", "grey"), 
                     limits = c("hemibiotroph", "obligate biotroph", 
                                "saprotroph", "undetermined")) +
   theme_minimal() +
@@ -588,8 +588,8 @@ CombiData$Significance = factor(as.character(CombiData$Significance),
 c = ggplot(data = CombiData, aes(x = Seasonality, y = Stratification)) + 
   geom_point(aes(shape = Significance, color = Lifestyle), 
              size = 2.5) +
-  scale_color_manual(values = c("lightsteelblue4", "indianred4", 
-                               "bisque4", "honeydew3"), 
+  scale_color_manual(values = c("lightblue4", "indianred4", 
+                               "khaki", "grey"), 
                     limits = c("hemibiotroph", "obligate biotroph", 
                                "saprotroph", "undetermined")) +
   scale_shape_manual(values = c(1, 15, 17, 19), 

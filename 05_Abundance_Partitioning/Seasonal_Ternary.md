@@ -77,8 +77,8 @@ Now we plot the dataframe with the ggtern package:
 ``` r
 t = ggtern(data = Terndata, aes(x = LeafLitter, y = Canopy, z = Soil)) + 
   geom_point(aes(color = Lifestyle), size = 2.5) +
-  scale_color_manual(values = c("lightsteelblue4", "indianred4", 
-                               "bisque4", "honeydew3"), 
+  scale_color_manual(values = c("lightblue4", "indianred4", 
+                               "khaki", "grey"), 
                     limits = c("hemibiotroph", "obligate biotroph", 
                                "saprotroph", "undetermined")) +
   theme_arrowdefault() + 
@@ -180,8 +180,8 @@ TerndataSeason_long_PeronoPythiales =
 ``` r
 p = ggtern(data = TerndataSeason_long_PeronoPythiales, aes(x = LeafLitter, y = Canopy, z = Soil)) + 
   geom_point(aes(color = Lifestyle), size = 2.5) +
-  scale_color_manual(values = c("lightsteelblue4", "indianred4", 
-                               "bisque4", "honeydew3"), 
+  scale_color_manual(values = c("lightblue4", "indianred4", 
+                               "khaki", "grey"), 
                     limits = c("hemibiotroph", "obligate biotroph", 
                                "saprotroph", "undetermined")) +
   #scale_color_viridis_d(option = "magma") +
